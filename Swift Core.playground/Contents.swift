@@ -352,3 +352,278 @@ for n in 1...10 {
   mySum += n
   print (mySum)
 }
+
+/* Functions: a named block of code, which we can call on by using its name
+by using its name and adding parentheses */
+
+print ("Hello World!")
+
+/* There are built-in funtions, like print (), but we can, and often have to,
+create custom functions */
+
+func sayHi() {
+  print ("Hi!")
+}
+sayHi()
+
+/* If we need a code block more often, its a good idea to make it a function.
+Once we have it, we can always reuse it */
+
+func sayHi(to: String) {
+  print ("Hi \(to)!")
+}
+let person1 = "Jon"
+let person2 = "Dany"
+sayHi(to: person1)
+sayHi(to: person2)
+
+//: Parameters help us adapt the behavior of functions to different situations
+
+func sayHi(to: String, and: String) {
+  let str16 = "Hi \(to) and \(and)!"
+  print (str16)
+}
+let person3 = "Ben"
+let person4 = "Leia"
+sayHi (to: person3, and: person4)
+
+/* If a function manipulates a value, it might be a good idea to return the
+result of the operation */
+
+func double(number: Int) -> Int {
+  let result3 = number * 2
+  return result3
+}
+let myNumber1 = double(number:13)
+print ("myNumber1 is \(myNumber1)")
+
+//: We can also return tuples
+
+func createTuple() -> (Int,Int){
+  return (1, 2)
+}
+let (a, b) = createTuple()
+
+//: We can pass an array to a function as well
+
+func sayHi(to: [String]){
+  for person5 in to {
+    print ("Hi \(person5)!")
+  }
+}
+let myFriends = ["Luke", "Leia"]
+sayHi(to: myFriends)
+
+//: We can also pass and return Dictionairies
+
+func createDict() -> [Int: String]{
+  return [1: "a", 2: "b"]
+}
+let myDict6 = createDict()
+print (myDict6)
+
+//: In some cases, a variable number of Parameters comes in handy
+
+func totalize(numbers: Int...) {
+  var total = 0
+  for p in numbers {
+    total += p
+  }
+  print (total)
+}
+totalize(numbers:1, 4, 9)
+totalize(numbers:1, 4, 9, 10)
+
+//: A function within a function
+
+func walk(steps: Int) {
+  var walked = 0
+  func addSteps(steps: Int) {
+    walked += steps
+  }
+  addSteps(steps:steps)
+  print ("Walked \(walked) steps")
+}
+walk(steps: 3)
+walk(steps: 5)
+
+/* Normally, we need to use the name of every parameter when calling a function.
+If thats not what we want, we add an underscore before it and skip the name */
+
+func totalize(_ numbers: Int...) {
+  var total = 0
+  for q in numbers {
+    total += q
+  }
+  print (total)
+}
+totalize (8,1,5)
+
+/* What if we want to use a readable parameter name to call a function but a
+more descriptive name within the function? */
+
+func sayHi1(to people: [String]) {
+  for person in people {
+    print ("Hi \(person)!")
+  }
+}
+let myFriends1 = ["Ben", "Leia"]
+sayHi(to: myFriends1)
+
+//: Quiz question: order the code snippets to become a proper function
+
+func triple(r: Int) -> Int {
+  var result1:Int
+  result1 = r * 3
+  return (result1)
+  }
+
+//: Quiz question: what will this code print to the console?
+
+func walk1(steps: Int) {
+  var walked = 0
+  func addSteps(steps: Int) {
+    walked += steps
+  }
+  addSteps(steps:steps)
+  print (walked)
+}
+walk(steps: 5)
+
+//: Quiz question: Order the code snippets to result in a working function
+
+func reverse(s: String) -> String {
+  var str17 = ""
+  for t in s.characters {
+    str17 = "\(t)" + str17
+  }
+  return str17
+}
+
+/* Classes: a class is like a blueprint that outlines things that objects of the
+sort have in common, like certain properties */
+
+//: Each unique instance with properties in a class can be adapted
+
+class Human {
+  var name1 = ""
+  var age1 = 0
+}
+var me = Human ()
+me.name1 = "Justin"
+print (me.name1)
+
+//: properties can also be set at the time the instance is created
+
+class Human1 {
+  var name2 = ""
+  var age2 = 0
+  init(name2: String, age2: Int) {
+    self.name2 = name2
+    self.age2 = age2
+  }
+}
+var u = Human1 (name2: "Justin", age2: 32)
+
+//: If we use an initializer to set values, we no longer need default values
+
+class Human2 {
+  var name3: String
+  var age3: Int
+  init(name3: String, age3: Int) {
+    self.name3 = name3
+    self.age3 = age3
+  }
+}
+var v = Human2 (name3: "Layla", age3: 7)
+
+//: Objects don't just have properties, they also have behavior. Functions take care of behavior
+
+class Car {
+  var engineStarted = false
+  func startEngine () {
+    print ("Vroom!")
+    engineStarted = true
+  }
+}
+var myCar = Car ()
+myCar.startEngine ()
+
+//: We need to initalize every property in a class, unless it is an optional
+
+class Car1 {
+  var color: String?
+  var mileage: Int
+  init() {
+    self.mileage = 0
+  }
+}
+var myCar1 = Car1 ()
+print (myCar1.color)
+
+/* A class can inherit the properties and behaviors from another class.
+Known as a subclass. Subclass can use the properties it inherits from its superclass */
+
+class Car2 {
+  var color1 = "Green"
+}
+class Racecar: Car2 {
+  var nitro: Bool?
+}
+var myCar2 = Racecar ()
+myCar2.color1 = "Red"
+print (myCar2.color1)
+
+//: The same applies to inherited functions: we can call them just like normal functions
+
+class Car3 {
+  func wash() {
+    print ("Car wash, baby!")
+  }
+}
+class Racecar1: Car3 {
+  // Race car things
+}
+var myCar3 = Racecar1 ()
+myCar3.wash()
+
+/* At times, its necessary for a subclass to change an inherited fucntion
+to fit its particular needs. When we override a function, the original function
+becomes hidden. But, we can still access it */
+
+class Animal {
+  func makeSound () {
+    print ("Arf!")
+  }
+}
+class Dog: Animal {
+  override func makeSound () {
+    super.makeSound ()
+    print ("Woof!")
+  }
+}
+var myDog = Dog ()
+myDog.makeSound ()
+
+/* Before we can change any values of inherited properties, we need to call
+the suplerclass's initializer and allow it to set its initial values. Only after
+we allow the initializer of Animal1 class to set its values, we can override them */
+
+class Animal1 {
+  var airborne = false
+}
+class Bird: Animal1 {
+  override init() {
+      super.init()
+        self.airborne = true
+      }
+}
+
+//: Quiz question: order the code snippets to become a proper class
+
+class Human3 {
+  var name4: String
+  init(name4: String) {
+    self.name4 = name4
+  }
+}
